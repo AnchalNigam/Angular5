@@ -1,0 +1,51 @@
+<div class="single">
+  <div class="container" >
+     <div class="col-md-8 single-main">	
+      		 
+       <div *ngIf="currentBlog" class="single-grid">
+        <div *ngIf="currentBlog.category=='Fashion';else techImage">		
+          <a><img src="assets/images/fashion.jpg" alt=""/></a>
+        </div>
+        <ng-template #techImage>
+            <div *ngIf="(currentBlog.category)=='Technical';else foodImage">		
+              <a ><img src="assets/images/tech.jpg" alt=""/></a>
+              </div>
+           
+        </ng-template>	
+        <ng-template #foodImage>
+            <div *ngIf="currentBlog.category=='Food';else defaultImage">		
+              <a ><img src="assets/images/food.png" alt=""/></a>
+              </div>
+            
+        </ng-template>	
+        <ng-template #defaultImage>
+          <a><img src="assets/images/blog.jpg" alt=""/></a>
+        </ng-template>	
+                
+         <h4 class="text-info">{{currentBlog.title}} <small>category : {{currentBlog.category}}</small></h4>			 					 
+         <h6 class="text-danger">{{currentBlog.description}}</h6>
+         <h6 class="text-primary" [innerHtml]="currentBlog.bodyHtml"></h6>
+       </div>
+       <!---728x90-->
+      <ul class="comment-list">
+            <p class="post-author_head">Written by: <a href="#" title="Posts by admin" rel="author">{{currentBlog.author}}</a></p>
+            <p class="post-author_head">Last Modified: {{currentBlog.lastModified | date}}</p>
+            <p class="post-author_head">Created on:{{currentBlog.created | date }}</p>
+            <li><img src="assets/images/avatar.png" class="img-responsive" alt="">
+            <div class="desc">
+            <p>View all posts by: <a [routerLink]="['/author',currentBlog.author]" title="Posts by admin" rel="author">{{currentBlog.author}}</a></p><br/>
+           
+            
+            </div>
+            <button class="btn btn-primary" [routerLink]="['/edit',currentBlog.blogId]">Edit</button>
+            <button class="btn btn-danger ml-auto" (click)="deleteBlog()">Delete</button>
+            <div class="clearfix"></div>
+            </li>
+         </ul>
+       
+     </div>
+
+      
+       <div class="clearfix"></div>
+     </div>
+   </div>

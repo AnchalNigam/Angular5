@@ -1,0 +1,89 @@
+
+<div class="content" >
+  <div class="container">
+    <div class="content-grids">
+      <div class=" col-md-8 content-main">
+        <div class="content-grid">		
+          <div *ngIf="allBlogs.length>0">		 
+            <div *ngFor="let blog of allBlogs" class="content-grid-info" >
+              <div *ngIf="blog.category.toLowerCase()=='fashion';else techImage">		
+                <a [routerLink]="['/blog',blog.blogId]"><img src="assets/images/fashion.jpg" alt=""/></a>
+              </div>
+              <ng-template #techImage>
+                  <div *ngIf="blog.category.toLowerCase()=='technical';else foodImage">		
+                    <a [routerLink]="['/blog',blog.blogId]"><img src="assets/images/tech.jpg" alt=""/></a>
+                    </div>
+                 
+              </ng-template>	
+              <ng-template #foodImage>
+                  <div *ngIf="blog.category.toLowerCase()=='food';else defaultImage">		
+                    <a [routerLink]="['/blog',blog.blogId]"><img src="assets/images/food.png" alt=""/></a>
+                    </div>
+                  
+              </ng-template>	
+              <ng-template #defaultImage>
+                <a [routerLink]="['/blog',blog.blogId]"><img src="assets/images/blog.jpg" alt=""/></a>
+              </ng-template>	
+                      
+              <div class="post-info">
+              <h4><a [routerLink]="['/blog',blog.blogId]">{{blog.title}}</a>  by {{blog.author}} / {{blog.lastModified | date }} / {{blog.views}} views</h4>
+              <p>{{blog.description}}</p>
+              <a [routerLink]="['/blog',blog.blogId]"><span></span>READ MORE</a>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        </div>
+       </div>
+       <div class="col-md-4 content-right">
+        <div class="recent">
+          <div *ngIf="allBlogs.length>0">	
+            <h3>AUTHOR</h3>
+         	  
+            <ul *ngFor="let author of authors | slice: 0 :6 ">
+            <li><a [routerLink]="['/author',author]">{{capital(author)}}</a></li>
+            
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="recent">
+            <div *ngIf="allBlogs.length>0">	
+              <h3>CATEGORY</h3>
+               
+              <ul *ngFor="let single of category | slice: 0:6">
+              <li><a [routerLink]="['/category',single]">{{capital(single)}}</a></li>
+              
+              </ul>
+            </div>
+        </div> -->
+        <div class="recent">
+            <div *ngIf="allBlogs.length>0">	
+              <h3>POPULAR POSTS</h3>
+               
+              <ul *ngFor="let blog of allBlogs | sort :'views' | slice: 0: 6 ">
+              <li><a [routerLink]="['/blog',blog.blogId]">{{capital(blog.title)}}</a></li>
+              
+              </ul>
+            </div>
+        </div>
+        <div class="recent">
+            <div *ngIf="allBlogs.length>0">	
+              <h3>RECENT POSTS</h3>
+               
+              <ul *ngFor="let blog of allBlogs | sort :'lastModified' |slice: 0:6 ">
+              <li><a [routerLink]="['/blog',blog.blogId]">{{capital(blog.title)}}</a></li>
+              
+              </ul>
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+      
+        <div class="clearfix"></div>
+       </div>
+       <div class="clearfix"></div>
+     </div>
+   </div>
+</div>
